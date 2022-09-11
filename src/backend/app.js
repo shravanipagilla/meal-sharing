@@ -84,9 +84,9 @@ router.use("/last-meal", async (request, response) => {
  
   try{
     // knex syntax for selecting things. Look up the documentation for knex for further info
-    const rows= await knex.raw(" select * from Meal ORDER BY id DESC LIMIT 1");
-    if(rows.length> 0 ){
-    response.json(rows[0])
+    const row= await knex.raw(" select * from Meal ORDER BY id DESC LIMIT 1");
+    if(row.length> 0 ){
+    response.json(row[0])
   }else{
     response.status(404).json({ error: "No meals found"})
    } 
