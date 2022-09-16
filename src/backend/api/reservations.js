@@ -5,8 +5,8 @@ const knex = require("../database");
 router.get("/", async (request, response) => {
   try {
     // knex syntax for selecting things. Look up the documentation for knex for further info
-    const titles = await knex("Meal").select("title");
-    response.json(titles);
+    const rows = await knex.raw("select * from Reservation");
+    response.json(rows);
   } catch (error) {
     throw error;
   }
