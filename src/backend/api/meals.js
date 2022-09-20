@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 const knex = require("../database");
@@ -28,10 +29,25 @@ router.get("/meals", async (request, response) => {
 
 router.post("/", async (req,res) =>{
   try {
-    const rows = await knex('Meal').insert({ title: 'curd rice', description: 'curd with rice', location: 'roskilde', when: '2022-08-24', max_reservations: 4, price: 220, created_date: '2022-07-17' });
-   res.json(rows);
-  }catch(error){
-    throw error;
+    const insertData = req.body;
+    const row = await knex("Meal");
+    if (Object.keys(insertData).length === 0){
+      res.status(200).json({inserted: insertData})
+}else{
+    const insertData= req.body
+    const rows = await knex('Meal').
+    insert({ 
+      title: insertData.title,
+      description: insertData.description,
+      location: insertData.location, 
+      when: insertData.when, 
+      max_reservations: insertData.max_reservations, 
+      price: insertData.price, 
+      created_date: insertData.created_date});
+   res.send({message:"inserted new row"});
+    }
+}catch(error){
+    res.send({message:"it does not insert"});
   }
 });
 
@@ -53,10 +69,21 @@ router.get("/:id", async (req, res) => {
 // 4.PUT	Updates the meal by id
 
 router.put("/:id", async (req, res) => {
+
+   const putData = req.body;
   try {
     // knex syntax for selecting things. Look up the documentation for knex for further info
 
-    const count = await knex('Meal').where('id', req.params.id) .update({location:'solrød'});
+    const count = await knex('Meal').where('id', req.params.id) 
+    .update({
+      title: putData.title,
+      description: putData.description,
+      location: putData.loc, 
+      when: putData.when, 
+      max_reservations: putData.max_res, 
+      price: putData.price, 
+      created_date: putData.created_date
+    });
     if(count){
     res.status(200).json({updated: count})
   } else {

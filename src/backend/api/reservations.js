@@ -28,10 +28,22 @@ router.get("/reservation", async (request, response) => {
 // 2.Adds a new reservation  to the database
   router.post("/", async (req,res) =>{
     try {
-      const rows = await knex('Reservation').insert({ number_of_guests: 3,meal_id: 1,created_date: '2022-10-11',contact_phonenumber : "22435674",contact_name: "ram",contact_email: "ram@123"});
-     res.json(rows);
+      const reqData = req.body;
+      const insertData = await knex("Meal");
+      if (Object.keys(insertData).length === 0){
+        res.status(404).json({measssge: " error in data"})
+  }else{
+      const rows = await knex('Reservation')
+      .insert({ number_of_guests: reqData.number_of_guests,
+        meal_id:reqData.meal_id,
+        created_date: reqData.created_date,
+        contact_phonenumber :reqData.contact_phonenumber,
+        contact_name: reqData.contact_name,
+        contact_email: reqData.contact_email});
+     res.json({message:"inserted new row in reservation table"});
+      }
     }catch(error){
-      throw error;
+      res.send({massage:"it does not inserted"});
     }
   });
 
@@ -54,14 +66,23 @@ router.get("/reservation", async (request, response) => {
   // 4.PUT	Updates the reservation by id
 
 router.put("/:id", async (req, res) => {
+  const putData = req.body;
+
     try {
       // knex syntax for selecting things. Look up the documentation for knex for further info
-  
-      const count = await knex('Reservation').where('id', req.params.id) .update('created_date' ,'2022-11-10' );      
+    const count = await knex('Reservation').where('id', req.params.id) 
+      .update({
+        number_of_guests: putData.number_of_guests,
+        contact_phonenumber :putData.contact_phonenumber, 
+        created_date: putData.created_date,
+       contact_name :putData.contact_name,
+      contact_email: putData.contact_email 
+    }
+      );      
       if(count){
-        res.status(200).json({updated: count})
+        res.status(200).json({count: 'updated'})
       } else {
-        res.status(404).json({message: "Record not found"})
+        res.send({message: "Record not found"})
       }
     
       } catch (error) {
