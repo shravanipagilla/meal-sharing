@@ -5,6 +5,8 @@ const { max, sum } = require("../database");
 const router = express.Router();
 const knex = require("../database");
 
+
+
 router.get("/hh", async (request, response) => {
   try {
     const rows = await knex('Meal').select('*');
@@ -17,7 +19,6 @@ router.get("/hh", async (request, response) => {
 // 1.maxPrice	Number	Returns all meals that are cheaper than maxPrice.	api/meals?maxPrice=90
 router.get("/", async (request, response) => {
   const queryString=request.query;
-  
     // 1.maxPrice
     if("maxPrice" in queryString){
       try{
@@ -40,11 +41,11 @@ router.get("/", async (request, response) => {
       const isTrueSet = (queryString.availableReservations.toLowerCase() === 'true');
       if(isTrueSet){
         try {
-          const rows = await knex('Reservation').sum('Reservation.number_of_guests AS guests')
+         const rows = await knex('Reservation').sum({guests:'Reservation.number_of_guests'})
         .join('Meal', 'Meal.id' ,'Reservation.meal_id')
         .select( 'Meal.title','Meal.id','Meal.max_reservations')
         .groupBy('Reservation.meal_id')
-        .having('Meal.max_reservations','<','guests')
+        .having('Meal.max_reservations','>','guests')
         if(rows.length !== 0){
           response.json(rows);
          }else {
@@ -115,34 +116,35 @@ router.get("/", async (request, response) => {
         response.status(404).json({Message:'Enter only a number'})
       }
       // 7.sort_key like api/meals?sort_key=price
-    } else if ("sort_key" in queryString){
-      const isSort_key= queryString.sort_key;
-      const keys = ['price', 'title', 'when'];
-      keys.forEach( keys =>{
-        if (isSort_key !== keys ){
-          response.send({Message:"error"})
-        }else if(isSort_key == keys){
-          meals = knex('Meal').orderBy(keys)
-        }else{
-          response.send(404);
+    }else if ("sort_key" in queryString && !("sort_dir" in queryString)){
+      const isSort_key = queryString.sort_key;
+      try {
+        const  meals = await knex('Meal').orderBy(isSort_key);
+        if(meals.length !== 0){
+         response.json(meals);
+        }else {
+         response.status(404).json({Message:'No Meals before given Date'})
         }
-    });
-     if("sort_key" in request.query){
-    const sortKey = queryString.sort_key;
-    const sortDir = queryString.sort_dir;
-    const array = new Set(["price", "when", "max_reservations"])
-    array.forEach( arr =>{
-      if (sortKey == arr && sortDir == "desc"){
-        meals = knex('Meal').orderBy(arr, "desc")
-      }else
-       if(sortKey == arr){
-        meals = knex('Meal').orderBy(arr)
-      }
-    })
-  }
+       } catch (error) {
+         throw error;
+       }
+    } else if ("sort_key" in queryString && "sort_dir" in queryString){
+      const isSort_key = queryString.sort_key;
+      const sortDir = queryString.sort_dir;
+      try {
+        const  meals = await knex('Meal').orderBy(isSort_key,sortDir);
+        if(meals.length !== 0){
+         response.json(meals);
+        }else {
+         response.status(404).json({Message:'No Meals before given Date'})
+        }
+       } catch (error) {
+         throw error;
+       }
+    }
   
 } 
-  });
+  );
 
 
 module.exports = router;
