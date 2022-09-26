@@ -128,6 +128,7 @@ router.get("/", async (request, response) => {
        } catch (error) {
          throw error;
        }
+       // 8.sort_key like api/meals?sort_key=price&sort_dir=desc
     } else if ("sort_key" in queryString && "sort_dir" in queryString){
       const isSort_key = queryString.sort_key;
       const sortDir = queryString.sort_dir;
