@@ -54,8 +54,7 @@ router.get("/", async (request, response) => {
         } catch (error) {
           throw error;
         }
-      }
-      // 3.title  like api/meals?title=Indian%20platter
+      } // 3.title  like api/meals?title=Indian%20platter
     }else if("title" in queryString){
       const isTitle = queryString.title; 
       if(isTitle){
@@ -123,7 +122,7 @@ router.get("/", async (request, response) => {
         if(meals.length !== 0){
          response.json(meals);
         }else {
-         response.status(404).json({Message:'No Meals before given Date'})
+         response.status(404).json({Message:'it is not sorting  asc '})
         }
        } catch (error) {
          throw error;
@@ -137,7 +136,7 @@ router.get("/", async (request, response) => {
         if(meals.length !== 0){
          response.json(meals);
         }else {
-         response.status(404).json({Message:'No Meals before given Date'})
+         response.status(404).json({Message:'it is not sorting desc or asc'})
         }
        } catch (error) {
          throw error;
