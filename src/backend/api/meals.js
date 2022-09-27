@@ -32,7 +32,7 @@ router.post("/", async (req,res) =>{
     const insertData = req.body;
     const row = await knex("Meal");
     if (Object.keys(insertData).length === 0){
-      res.status(200).json({inserted: insertData})
+      res.status(404).json({inserted: "No data inserted"})
 }else{
     const insertData= req.body
     const rows = await knex('Meal').
