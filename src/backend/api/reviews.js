@@ -11,14 +11,14 @@ router.get("/", async (request, response) => {
     if(title.length !== 0){
       response.send(title);
     }else {
-      response.status(404).json({Message:"No Reviews Found"});
+      response.status(400).json({Message:"No Reviews Found"});
     }    
   } catch (error) {
     throw error;
   }
 });
 
-// 2./api/meals/:meal_id/reviews	GET	Returns all reviews for a specific meal
+// 2./api/reviews/:meal_id/reviews	GET	Returns all reviews for a specific meal
 router.get("/:meal_id/reviews", async (request, response) => {
   try {
     // knex syntax for selecting things. Look up the documentation for knex for further info
@@ -45,7 +45,7 @@ router.post("/", async (request, response) => {
       title :insertData.title,
       description :insertData.description,
       meal_id :insertData.meal_id,
-      created_date: insertData.created_date,
+      //created_date: insertData.created_date,
       stars :insertData.stars
     });
     if(row !== 0){
@@ -86,16 +86,18 @@ router.put("/:id", async (req, res) => {
     title :putData.title,
     description :putData.description,
     meal_id :putData.meal_id,
-    created_date: putData.created_date,
+   // created_date: putData.created_date,
     stars :putData.stars
    });
    if(count !== 0){
     res.send({Message:'Review Updated', count} )
-   }
-  
-  }catch(error){
-  res.status(400).json({Message:"data not updated check your input data"})
+   }else{
+    res.status(400).json({Message:"data not updated check your input data"});
   }
+
+  }catch(error){
+    throw error;
+    }
 });
 
 // 6./api/reviews/:id	DELETE	Deletes the review by id
