@@ -4,6 +4,8 @@ const router = express.Router();
 const path = require("path");
 
 const mealsRouter = require("./api/meals");
+// adding reservations router here... 
+const reservationsRouter = require("./api/reservations");
 const buildPath = path.join(__dirname, "../../dist");
 const port = process.env.PORT || 3000;
 const cors = require("cors");
@@ -97,8 +99,6 @@ router.use("/last-meal", async (request, response) => {
     }
   
 });
-
-
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);
 } else {
@@ -111,3 +111,4 @@ app.use("*", (req, res) => {
 });
 
 module.exports = app;
+
