@@ -10,6 +10,7 @@ const buildPath = path.join(__dirname, "../../dist");
 const port = process.env.PORT || 3000;
 const cors = require("cors");
 
+const { route } = require("./api/meals");
 // For week4 no need to look into this!
 // Serve the built client html
 app.use(express.static(buildPath));
@@ -20,10 +21,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(cors());
+const knex = require('knex')({
+  client :'mysql2',
+  connection: {
+      host : process.env.DB_HOST,
+      //@ts-ignorets-
+      port : process.env.DB_PORT,
+      user : process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database:process.env.DB_NAME,
+  }
+   })
 
 router.use("/meals", mealsRouter);
-// using reservations router here ...
-router.use("/reservations", reservationsRouter);
 
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);
