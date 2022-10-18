@@ -34,7 +34,71 @@ const knex = require('knex')({
    })
 
 router.use("/meals", mealsRouter);
+// 1.Respond with all meals in the future (relative to the when datetime)
+router.use("/future-meals", async (request, response) => {
+ 
+  try {
+    // knex syntax for selecting things. Look up the documentation for knex for further info
+    const rows= await knex.raw("select * from Meal WHERE Meal.when > now()");
+    response.json(rows[0]);
+   } catch (error) {
+    throw error;
+  }
+}),
 
+// 2.Respond with all meals in the past (relative to the when datetime)
+router.use("/past-meals", async (request, response) => {
+ 
+  try {
+    const rows= await knex.raw("select * from Meal WHERE Meal.when < now()");
+    response.json(rows[0]);
+   } catch (error) {
+    throw error;
+  }
+}),
+
+// 3.Respond with all meals sorted by ID
+router.use("/all-meals", async (request, response) => {
+ 
+  try {
+    //const rows = await knex.raw("select MIN(id) from Meal")
+    const rows= await knex.raw("select * from Meal ORDER BY id");
+    response.json(rows[0]);
+   } catch (error) {
+    throw error;
+  }
+}),
+
+// 4.Respond with the first meal (meaning with the minimum id)
+router.use("/first-meal", async (request, response) => {
+ 
+  try {
+    //const rows = await knex.raw("select MIN(id) from Meal")
+    const rows= await knex.raw("select * from Meal WHERE id  LIMIT 1");
+    response.json(rows[0]);
+   } catch (error) {
+    throw error;
+  }
+}),
+
+// 5.Respond with the last meal (meaning with the maximum id)
+router.use("/last-meal", async (request, response) => {
+ 
+  try{
+    // knex syntax for selecting things. Look up the documentation for knex for further info
+    const row= await knex.raw(" select * from Meal ORDER BY id DESC LIMIT 1");
+    if(row.length> 0 ){
+    response.json(row[0])
+  }else{
+    response.status(404).json({ error: "No meals found"})
+   } 
+  }
+   catch (error) {
+    console.error(error)
+    response.status(500).send("Internal server error")
+    }
+  
+});
 if (process.env.API_PATH) {
   app.use(process.env.API_PATH, router);
 } else {
