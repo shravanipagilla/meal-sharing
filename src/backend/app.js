@@ -33,6 +33,7 @@ const knex = require('knex')({
   }
    })
 
+router.use("/reservations", reservationsRouter);
 router.use("/meals", mealsRouter);
 // 1.Respond with all meals in the future (relative to the when datetime)
 router.use("/future-meals", async (request, response) => {
