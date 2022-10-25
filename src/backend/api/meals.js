@@ -7,12 +7,7 @@ const knex = require("../database");
 
 
 router.get("/", async (request, response) => {
-  let meals = knex("Meal").join(
-    "Reservation",
-    "Reservation.meal_id",
-    "=",
-    "Meal.id"
-  );
+  let meals = knex("Meal")
   const queryString = request.query;
 
   // 1.maxPrice	Number	Returns all meals that are cheaper than maxPrice.	api/meals?maxPrice=90
@@ -27,13 +22,13 @@ router.get("/", async (request, response) => {
       }
     if (queryString.availableReservations === "true") {
       // If max_reservations is null, I assume it means that we can make an unlimited amount of reservations.
-      meals = meals
+      meals = meals.leftJoin("Reservation","Reservation.meal_id", "Meal.id")
         .groupBy("Meal.id")
         .havingRaw(
           "max_reservations IS NULL OR SUM(COALESCE(Reservation.number_of_guests, 0)) < max_reservations"
         );
     } else {
-      meals = meals.groupBy("Meal.id")
+      meals = meals.groupBy("Meal.id").leftJoin("Reservation","Reservation.meal_id", "Meal.id")
               .havingRaw("SUM(Reservation.number_of_guests) >= max_reservations");
     }
   }

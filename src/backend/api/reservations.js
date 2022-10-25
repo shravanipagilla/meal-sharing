@@ -24,7 +24,6 @@ router.get("/reservation", async (request, response) => {
       throw error;
     }
   });
-
 // 2.Adds a new reservation  to the database
   router.post("/", async (req,res) =>{
     try {
