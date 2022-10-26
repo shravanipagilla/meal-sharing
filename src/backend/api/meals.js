@@ -1,13 +1,11 @@
 // @ts-nocheck
-const { query } = require("express");
 const express = require("express");
 //const { max, sum } = require("../database");
 const router = express.Router();
 const knex = require("../database");
 
-
 router.get("/", async (request, response) => {
-  let meals = knex("Meal")
+  let meals = knex("Meal");
   const queryString = request.query;
 
   // 1.maxPrice	Number	Returns all meals that are cheaper than maxPrice.	api/meals?maxPrice=90
@@ -16,23 +14,27 @@ router.get("/", async (request, response) => {
   }
   // 2.availableReservations api/meals?availableReservations=true
   if ("availableReservations" in queryString) {
-      if (!["true", "false"].includes(queryString.availableReservations)) {
-        response.status(400).json({ error: "availableReservations must be either True or False" })
-        return
-      }
+    if (!["true", "false"].includes(queryString.availableReservations)) {
+      response
+        .status(400)
+        .json({ error: "availableReservations must be either True or False" });
+      return;
+    }
     if (queryString.availableReservations === "true") {
       // If max_reservations is null, I assume it means that we can make an unlimited amount of reservations.
-      meals = meals.leftJoin("Reservation","Reservation.meal_id", "Meal.id")
+      meals = meals
+        .leftJoin("Reservation", "Reservation.meal_id", "Meal.id")
         .groupBy("Meal.id")
         .havingRaw(
           "max_reservations IS NULL OR SUM(COALESCE(Reservation.number_of_guests, 0)) < max_reservations"
         );
     } else {
-      meals = meals.groupBy("Meal.id").leftJoin("Reservation","Reservation.meal_id", "Meal.id")
-              .havingRaw("SUM(Reservation.number_of_guests) >= max_reservations");
+      meals = meals
+        .groupBy("Meal.id")
+        .leftJoin("Reservation", "Reservation.meal_id", "Meal.id")
+        .havingRaw("SUM(Reservation.number_of_guests) >= max_reservations");
     }
   }
-  
 
   // 3.title  like api/meals?title=Indian%20platter
   if ("title" in queryString) {
@@ -96,27 +98,27 @@ router.get("/meals", async (request, response) => {
 
 // 2.Adds a new meal to the database
 
-router.post("/", async (req,res) =>{
+router.post("/", async (req, res) => {
   try {
     const insertData = req.body;
     const row = await knex("Meal");
-    if (Object.keys(insertData).length === 0){
-      res.status(404).json({inserted: "No data inserted"})
-}else{
-    const insertData= req.body
-    const rows = await knex('Meal').
-    insert({ 
-      title: insertData.title,
-      description: insertData.description,
-      location: insertData.location, 
-      when: insertData.when, 
-      max_reservations: insertData.max_reservations, 
-      price: insertData.price, 
-      created_date: insertData.created_date});
-   res.send({message:"inserted new row"});
+    if (Object.keys(insertData).length === 0) {
+      res.status(404).json({ inserted: "No data inserted" });
+    } else {
+      const insertData = req.body;
+      const rows = await knex("Meal").insert({
+        title: insertData.title,
+        description: insertData.description,
+        location: insertData.location,
+        when: insertData.when,
+        max_reservations: insertData.max_reservations,
+        price: insertData.price,
+        created_date: insertData.created_date,
+      });
+      res.send({ message: "inserted new row" });
     }
-}catch(error){
-    res.send({message:"it does not insert"});
+  } catch (error) {
+    res.send({ message: "it does not insert" });
   }
 });
 
@@ -124,12 +126,12 @@ router.post("/", async (req,res) =>{
 
 router.get("/:id", async (req, res) => {
   try {
-    const data = await knex('Meal').where('id', req.params.id);
-    if(data.length != 0){
+    const data = await knex("Meal").where("id", req.params.id);
+    if (data.length != 0) {
       res.json(data);
-    }else{
-      res.status(404).json({message: "Record not found"})
-        }
+    } else {
+      res.status(404).json({ message: "Record not found" });
+    }
   } catch (error) {
     throw error;
   }
@@ -138,43 +140,41 @@ router.get("/:id", async (req, res) => {
 // 4.PUT	Updates the meal by id
 
 router.put("/:id", async (req, res) => {
-
-   const putData = req.body;
+  const putData = req.body;
   try {
     // knex syntax for selecting things. Look up the documentation for knex for further info
 
-    const count = await knex('Meal').where('id', req.params.id) 
-    .update({
+    const count = await knex("Meal").where("id", req.params.id).update({
       title: putData.title,
       description: putData.description,
-      location: putData.loc, 
-      when: putData.when, 
-      max_reservations: putData.max_res, 
-      price: putData.price, 
-      created_date: putData.created_date
+      location: putData.loc,
+      when: putData.when,
+      max_reservations: putData.max_res,
+      price: putData.price,
+      created_date: putData.created_date,
     });
-    if(count){
-    res.status(200).json({updated: count})
-  } else {
-    res.status(404).json({message: "Record not found"})
-  }
-
+    if (count) {
+      res.status(200).json({ updated: count });
+    } else {
+      res.status(404).json({ message: "Record not found" });
+    }
   } catch (error) {
-    res.status(500).json({message: "Error updating new post", error: error})  }
+    res.status(500).json({ message: "Error updating new post", error: error });
+  }
 });
 
 // 5.DELETE	  Deletes the meal by id
-router.delete("/:id", async(req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const deleted = await knex('Meal').where('id', req.params.id).del()
-    if(deleted){
-      res.status(200).json({updated: deleted})
+    const deleted = await knex("Meal").where("id", req.params.id).del();
+    if (deleted) {
+      res.status(200).json({ updated: deleted });
     } else {
-      res.status(404).json({message: "Record not found"})
+      res.status(404).json({ message: "Record not found" });
     }
-
-    } catch (error) {
-      res.status(500).json({message: "Error updating new post", error: error})  }
+  } catch (error) {
+    res.status(500).json({ message: "Error updating new post", error: error });
+  }
 });
 
 module.exports = router;
