@@ -8,6 +8,7 @@ import AddReview from "./components/TestComponent/AddReview";
 import Meals from "./components/TestComponent/Meals";
 import MealDetail from "./components/TestComponent/MealDetail";
 import Home from "./components/TestComponent/Home";
+import ContactUS from "./components/TestComponent/ContactUs";
 
 function App() {
   const [meals, setMeals] = useState([]);
@@ -33,8 +34,6 @@ function App() {
         .then((res) => res.json())
         .then((data) => {
           setIsLoading(false);
-          console.log(data);
-          console.log("hello i am serching");
           setMeals(data);
         });
     }
@@ -94,6 +93,7 @@ function App() {
 
       <Route exact path="/ContactUs">
         <Header/>
+        <ContactUS/>
         <Footer />
       </Route>
     </Router>

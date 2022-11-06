@@ -27,7 +27,7 @@ const Home = ({ meals, isLoading }) => {
       </div>
       <img
       className='home-img'
-        src="https://i.ibb.co/SKn0nSF/img2.jpg"
+        src="https://i.ibb.co/5rP8kZM/196.jpg"
         alt="food_image"
           width="100%"
         //  height="400%"
