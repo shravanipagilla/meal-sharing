@@ -1,15 +1,13 @@
-import React , {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Allmeals from "./components/TestComponent/Allmeals";
 import Header from "./components/Header";
-import "./App.css"
+import "./App.css";
 import Footer from "./components/TestComponent/Footer";
 import AddMeal from "./components/AddMeal";
- import AddReview from "./components/TestComponent/AddReview";
-// import AddReservation from "./components/TestComponent/AddReservation";
- import Meals from "./components/TestComponent/Meals";
- import MealDetail from "./components/TestComponent/MealDetail";
-
+import AddReview from "./components/TestComponent/AddReview";
+import Meals from "./components/TestComponent/Meals";
+import MealDetail from "./components/TestComponent/MealDetail";
+import Home from "./components/TestComponent/Home";
 
 function App() {
   const [meals, setMeals] = useState([]);
@@ -36,9 +34,9 @@ function App() {
         .then((data) => {
           setIsLoading(false);
           console.log(data);
-          console.log('hello i am serching')
+          console.log("hello i am serching");
           setMeals(data);
-        })
+        });
     }
   };
 
@@ -54,45 +52,51 @@ function App() {
         });
         setReviews(reviews);
       });
-    };
+  };
 
   return (
     <Router>
-   <Route exact path="/">
-      <Header/>
-        <Allmeals />
-        <Footer/>
+      <Route exact path="/">
+        <Header />
+        <Home meals={meals} isLoading={isLoading} />
+        <Footer />
       </Route>
+
       <Route exact path="/meals">
-      <Header/>
-      <Meals
+        <Header />
+        <Meals
           meals={meals}
           setSearchMeal={setSearchMeal}
           searchMeal={searchMeal}
           isLoading={isLoading}
           reviews={reviews}
         />
-        <Footer/>
+        <Footer />
       </Route>
+
       <Route exact path="/meals/addMeal">
-      <Header/>
-       <AddMeal /> 
-       <Footer/>
+        <Header />
+        <AddMeal />
+        <Footer />
       </Route>
+
       <Route exact path="/meals/:id">
-      <Header/>
-     <MealDetail meals={meals}/>
-     <Footer/>
+        <Header />
+        <MealDetail meals={meals} />
+        <Footer />
       </Route>
+
       <Route exact path="/meals/:id/mealReview">
         <Header />
         <AddReview />
         <Footer />
       </Route>
-      
 
+      <Route exact path="/ContactUs">
+        <Header/>
+        <Footer />
+      </Route>
     </Router>
-    
   );
 }
 

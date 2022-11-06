@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from "react";
-import logo from "../assets/images/logo.png"
+//import logo from "../assets/images/logo.png"
 import { Link } from "react-router-dom";
 
 
@@ -11,7 +11,7 @@ export default function Header() {
     return (
         <header className="header">
             <div>
-                <img src={logo} alt="logo"  height="200" width="180"/>
+                <img src="https://i.ibb.co/RNsqzBk/img3.jpg" alt="logo"  height="200" width="180"/>
             </div>
             <h1>Welcome to Meal-Sharing</h1>
             <nav className="headerNav">
@@ -22,12 +22,13 @@ export default function Header() {
                 <p>AboutUs</p>
                 <p>ContactUS</p>  */}
                 <nav>
-      <img className='header-logo'
+      {/* <img className='header-logo'
         src="https://i.ibb.co/RNsqzBk/img3.jpg"
         alt="MealSharing logo"
          width="180"
          height="120"
-      />
+      /> */}
+      <div className="links">
       <ul className="nav-links">
         <Link to={"/"} style={navStyle}>
           <li>Home</li>
@@ -35,8 +36,12 @@ export default function Header() {
         <Link to={"/meals"} style={navStyle}>
           <li>Meals</li>
         </Link>
+        <Link to={"/ContactUs"} style={navStyle}>
+          <li>ContactUS</li>
+        </Link>
 
       </ul>
+      </div>
     </nav>
             </nav>
         </header>

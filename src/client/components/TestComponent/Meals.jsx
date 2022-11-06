@@ -20,12 +20,15 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
     return averageRatings;
   };
   const imgArray=[
-    "https://i.ibb.co/tYB4HsV/imgorder1.png",
-    "https://i.ibb.co/wdZ6pYy/imgorder2.jpg",
-    "https://i.ibb.co/T2jnxMj/imgorder3.png",
-    "https://i.ibb.co/TwLPb9r/imgorder4.jpg",
+    "https://i.ibb.co/0YBmRMm/imgorder1.jpg",
+
+    "https://i.ibb.co/tYB4HsV/imgorder2.png",
+    "https://i.ibb.co/wdZ6pYy/imgorder3.jpg",
+    "https://i.ibb.co/T2jnxMj/imgorder4.png",
     "https://i.ibb.co/mSXcHrD/imgorder5.jpg",
-    "https://i.ibb.co/0YBmRMm/imgorder6.jpg"
+
+     "https://i.ibb.co/TwLPb9r/imgorder6.jpg",
+   
   ];
 
 
@@ -39,7 +42,7 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
           <input
             className="search_input"
             type="text"
-            placeholder="search meal..."
+            placeholder="search for  meal..."
             value={searchMeal}
             onChange={(e) => setSearchMeal(e.target.value)}
           />

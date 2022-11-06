@@ -1,8 +1,7 @@
+// @ts-nocheck
 
 import React, { useState } from "react";
 import PostData from "./TestComponent/PostData";
-
-
 const AddMeal = () => {
   const [isvisible, setIsvisible] = useState(false);
   const [title, setTitle] = useState("");
@@ -41,7 +40,6 @@ const AddMeal = () => {
   const sendData = (e) => {
     e.preventDefault();
       const mealData = {
-        // id: Math.floor(Math.random() * 100),
         title: title,
         description: description,
         created_date: created_date,
@@ -51,12 +49,10 @@ const AddMeal = () => {
         when: when,
       };
       const response= PostData("/api/meals", mealData);
-      // @ts-ignore
       if (response) {
         alert("Thank You For Adding Meal");
         setStatesEmpty();
       } else {
-        // @ts-ignore
         throw new Error(response.status);
       }
   };
@@ -64,7 +60,7 @@ const AddMeal = () => {
     <div>
       <div className="Addbutton">
         <h1>
-          Become a host!!!  Would you like to share your recepie?? If yes, please click the
+          Happy to see you , Thank you for visiting our page : Would you like to share your recepie?? please click the
           button..
         </h1>
         <button onClick={addMeal}>Add Meal</button>
@@ -146,7 +142,6 @@ const AddMeal = () => {
               placeholder="Price"
             />
             <br />
-            <label htmlFor="when">*Meal Available From</label>
             <label htmlFor="when" className='label-meal-available-frm'>*Meal Available From</label>
             <input
               type="date"

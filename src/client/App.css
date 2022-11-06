@@ -6,24 +6,18 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between; 
-    background-color: rgb(66, 131, 92);
+    background-color: rgb(211, 220, 215);
 }
 
-.headerNav {
+.links {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content:space-between;
+    position: static; 
 }
 
 .headerNav p {
     margin: 2em;
-}
-.upperCase,
-#title,
-.title {
-    text-transform: uppercase;
-    color: brown;
-    font-weight: bolder;
 }
 
 .socialMedia{

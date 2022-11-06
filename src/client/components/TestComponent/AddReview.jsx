@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PostData from "./PostData";
@@ -28,7 +29,7 @@ const AddReview = () => {
 
   useEffect(() => {
     //fetching specific meal with id
-    // @ts-ignore
+   
     fetch(`/api/meals/${params.id}`)
       .then((res) => res.json())
       .then((meal) => {
@@ -45,7 +46,6 @@ const AddReview = () => {
   function onSubmit(e) {
     e.preventDefault();
     const newReview = {
-      // @ts-ignore
       meal_id: params.id,
       title,
       created_date,
@@ -54,16 +54,12 @@ const AddReview = () => {
     };
     //posting a review
     const  response = PostData("/api/reviews", newReview);
-
-    // @ts-ignore
     if (response) {
       alert("Thank You For Your Review");
     } else {
-      // @ts-ignore
       throw new Error(response.status);
     }
 
-    // setForm(false);
     setStatesEmpty();
   }
 
@@ -84,21 +80,18 @@ const AddReview = () => {
         <h3>
           Meal :{" "}
           {
-            // @ts-ignore
-            meal.title
+              meal.title
           }
         </h3>
         <h4>
           Description:{" "}
           {
-            // @ts-ignore
-            meal.description
+                      meal.description
           }
         </h4>
         <h4>
-          Price :{" "}
+          Price : {" "}
           {
-            // @ts-ignore
             meal.price
           }
           DKK
