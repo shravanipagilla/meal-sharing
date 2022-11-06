@@ -23,14 +23,12 @@ const AddReview = () => {
       month < 10 ? `0${month}` : `${month}`
     }${"-"}${date < 10 ? `0${date}` : `${date}`}`;
 
-    console.log(currentDate)
     return currentDate;
   };
 
   useEffect(() => {
     //fetching specific meal with id
-   
-    fetch(`/api/meals/${params.id}`)
+   fetch(`/api/meals/${params.id}`)
       .then((res) => res.json())
       .then((meal) => {
         setMeal(meal[0]);

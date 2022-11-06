@@ -14,24 +14,21 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
       .map((star) => star.stars);
     //calculating the total ratings
     const totalRatings = ratings.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,0);
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
     //average of the ratings
     const averageRatings = Math.ceil(totalRatings / ratings.length);
     return averageRatings;
   };
-  const imgArray=[
+  const imgArray = [
     "https://i.ibb.co/0YBmRMm/imgorder1.jpg",
-
     "https://i.ibb.co/tYB4HsV/imgorder2.png",
     "https://i.ibb.co/wdZ6pYy/imgorder3.jpg",
     "https://i.ibb.co/T2jnxMj/imgorder4.png",
     "https://i.ibb.co/mSXcHrD/imgorder5.jpg",
-
-     "https://i.ibb.co/TwLPb9r/imgorder6.jpg",
-   
+    "https://i.ibb.co/TwLPb9r/imgorder6.jpg",
   ];
-
-
 
   return (
     <div>
@@ -51,12 +48,16 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
       )}
 
       <div className="row">
-        {meals.map((meal,i) => (
-
+        {meals.map((meal, id) => (
           <div key={meal.id} className="column">
             <div className="card">
-                <img className='meals-image'
-                src= {imgArray[meal.id-1]?imgArray[meal.id-1]:"https://i.ibb.co/fMVnBYH/imgdefault.jpg"}
+              <img
+                className="meals-image"
+                src={
+                  imgArray[meal.id - 1]
+                    ? imgArray[meal.id - 1]
+                    : "https://i.ibb.co/fMVnBYH/imgdefault.jpg"
+                }
                 alt="Meal Image"
                 height="200px"
                 width="320px"
@@ -75,7 +76,6 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                     }
                   >
                     {" "}
-                    ★
                   </span>
                   <span
                     className={
@@ -83,7 +83,6 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                     }
                   >
                     {" "}
-                    ★
                   </span>
                   <span
                     className={
@@ -91,7 +90,6 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                     }
                   >
                     {" "}
-                    ★
                   </span>
                   <span
                     className={
@@ -99,7 +97,6 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                     }
                   >
                     {" "}
-                    ★
                   </span>
                   <span
                     className={
@@ -107,7 +104,6 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                     }
                   >
                     {" "}
-                    ★
                   </span>
                 </div>
               ) : (

@@ -57,7 +57,7 @@ function App() {
     <Router>
       <Route exact path="/">
         <Header />
-        <Home meals={meals} isLoading={isLoading} />
+        <Home />
         <Footer />
       </Route>
 
