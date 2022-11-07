@@ -14,8 +14,8 @@ function ContactUS() {
         <br />
         <div>
           <h1 id="contact">CONTACT INFORMATION</h1>
-          <li>mealsharing_spagilla@gmail.com</li>
-          <li>+45 98765432</li>
+          <li>Gmail: mealsharing_spagilla@gmail.com</li>
+          <li>Phone: +45 98765432</li>
         </div>
         <div id="social-media" className="contacts-right">
           <h1>ADDRESS</h1>
