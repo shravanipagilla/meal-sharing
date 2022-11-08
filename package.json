@@ -4,7 +4,7 @@
   "description": "Website for sharing meals",
   "engines": {
     "node": "16.15.0",
-     "npm":  "8.5.5"
+    "npm": "8.5.5"
   },
   "scripts": {
     "build": "webpack --mode production",
@@ -54,7 +54,7 @@
     "webpack-cli": "^4.9.2"
   },
   "devDependencies": {
-    "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "concurrently": "^7.0.0",
     "install-peers": "^1.0.3",
     "nodemon": "^2.0.15",
