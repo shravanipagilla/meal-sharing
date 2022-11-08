@@ -24,10 +24,11 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
   const imgArray = [
     "https://i.ibb.co/0YBmRMm/imgorder1.jpg",
     "https://i.ibb.co/tYB4HsV/imgorder2.png",
-    "https://i.ibb.co/wdZ6pYy/imgorder3.jpg",
+    "https://i.ibb.co/kxb7szg/imgorder3.jpg",
     "https://i.ibb.co/T2jnxMj/imgorder4.png",
     "https://i.ibb.co/mSXcHrD/imgorder5.jpg",
     "https://i.ibb.co/TwLPb9r/imgorder6.jpg",
+    "https://i.ibb.co/wdZ6pYy/imgorder7.jpg"
   ];
 
   return (
