@@ -6,7 +6,7 @@ function ContactUS() {
     <div className="contacts">
       <nav className="nav">
         <div className="starts">
-          <h1>COMPANY DATAILS</h1>
+          <h1>HOTEL DATAILS</h1>
           <li>Our Services</li>
           <li>Terms & Conditons</li>
           <li>Blog</li>
