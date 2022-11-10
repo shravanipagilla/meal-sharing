@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "Website for sharing meals",
   "engines": {
-    "node": "15.0.0"
+    "node": "13.0.0"
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm run build && node ./src/backend/server",
+    "start": "node index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon ./src/backend/server",
-    "dev": "nodemon app.js"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Benjamin Hughes",
   "license": "MIT",
