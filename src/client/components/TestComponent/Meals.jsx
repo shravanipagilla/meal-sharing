@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AddMeal from "../AddMeal";
 // @ts-ignore
 import { FaSearch } from "react-icons/fa";
+import "./meals.css"
 
 const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
   console.log(reviews);
@@ -63,12 +64,14 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                 height="200px"
                 width="320px"
               />
-              <Link to={`/meals/${meal.id}`}>
+              <div className="meals">
+              <Link  to={`/meals/${meal.id}`}>
                 <h1>{meal.title}</h1>
               </Link>
               <hr />
-              <h3>{meal.price} DKK</h3>
+              <h3 >{meal.price} DKK</h3>
               <hr />
+              </div>
               {reviewsWithMeals(meal.id) ? (
                 <div className="starRatingInput">
                   <span
@@ -118,6 +121,7 @@ const Meals = ({ meals, setSearchMeal, searchMeal, isLoading, reviews }) => {
                   <button className="ReviewButton">Add review</button>
                 </div>
               </Link>
+              <br></br>
               <Link to={`/meals/${meal.id}`}>
                 <div>
                   <button className="ReviewButton">Book Meal</button>
