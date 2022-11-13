@@ -89,49 +89,8 @@ router.get("/", async (request, response) => {
 router.get("/meals", async (request, response) => {
   try {
     // knex syntax for selecting things. Look up the documentation for knex for further info
-    const rows = await knex("Meal").select("*");
-    response.json(rows);
-  } catch (error) {
-    throw error;
-  }
-});
-
-// 2.Adds a new meal to the database
-
-router.post("/", async (req, res) => {
-  try {
-    const insertData = req.body;
-    const row = await knex("Meal");
-    if (Object.keys(insertData).length === 0) {
-      res.status(404).json({ inserted: "No data inserted" });
-    } else {
-      const insertData = req.body;
-      const rows = await knex("Meal").insert({
-        title: insertData.title,
-        description: insertData.description,
-        location: insertData.location,
-        when: insertData.when,
-        max_reservations: insertData.max_reservations,
-        price: insertData.price,
-        created_date: insertData.created_date,
-      });
-      res.send({ message: "inserted new row" });
-    }
-  } catch (error) {
-    res.send({ message: "it does not insert" });
-  }
-});
-
-// 3.Returns the meal by id
-
-router.get("/:id", async (req, res) => {
-  try {
-    const data = await knex("Meal").where("id", req.params.id);
-    if (data.length != 0) {
-      res.json(data);
-    } else {
-      res.status(404).json({ message: "Record not found" });
-    }
+    const titles = await knex("meals").select("title");
+    response.json(titles);
   } catch (error) {
     throw error;
   }

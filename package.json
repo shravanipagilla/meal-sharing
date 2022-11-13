@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Website for sharing meals",
   "engines": {
-    "node": "8.11.1"
+    "node": "13.0.0"
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "npm run build && node ./src/backend/server",
+    "start": "node index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon ./src/backend/server",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -32,16 +32,17 @@
     "debug": "~2.6.0",
     "dotenv": "^4.0.0",
     "dotenv-webpack": "^7.1.0",
-    "express": "^4.16.4",
+    "express": "^4.18.1",
     "express-brute": "^1.0.1",
     "express-form-data": "^2.0.1",
     "html-webpack-plugin": "^4.3.0",
-    "knex": "^0.21.1",
+    "knex": "^0.21.21",
     "multer": "^1.3.0",
-    "mysql2": "^2.1.0",
+    "mysql2": "^2.3.3",
     "path": "^0.12.7",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "react-icons": "^4.6.0",
     "react-router-dom": "^5.0.1",
     "sass": "^1.27.1",
     "sass-loader": "^10.0.4",
@@ -55,8 +56,18 @@
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "concurrently": "^7.0.0",
     "install-peers": "^1.0.3",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.20",
     "sequelize-cli": "^6.4.1",
     "webpack-dev-server": "^4.7.4"
-  }
+  },
+  "main": "webpack.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shravanipagilla/meal-sharing.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/shravanipagilla/meal-sharing/issues"
+  },
+  "homepage": "https://github.com/shravanipagilla/meal-sharing#readme"
 }

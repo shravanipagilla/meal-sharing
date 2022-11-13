@@ -6,10 +6,10 @@
 }
 
 #root {
-  padding-left: 30%;
-  padding-right: 30%;
+  /* padding-left: 30px;
+  padding-right: 30px; */
   height: 100vh;
-}
+} 
 
 body {
   margin: 0;
